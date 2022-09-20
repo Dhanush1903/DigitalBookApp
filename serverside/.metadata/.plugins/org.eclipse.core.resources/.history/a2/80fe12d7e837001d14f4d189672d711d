@@ -1,0 +1,43 @@
+package com.author.controller;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import com.author.entity.Author;
+import com.author.service.IAuthorService;
+
+@ExtendWith(MockitoExtension.class)
+public class AuthorTestController {
+	@Mock
+	IAuthorService authorService;
+
+	@InjectMocks
+	AuthorController authorController;
+
+	@Test
+	void testcreateauthor() {
+
+		Author author = new Author();
+		author.setEmail("test@gmail.com");
+		when(authorService.saveAuthor(author)).thenReturn(author);
+		assertEquals(author, authorController.createAuthor(author));
+	}
+
+	@Test
+	void testlogin() {
+
+		AuthorDTO authorDTO = new AuthorDTO();
+		authorDTO.setEmail("sanketh@gmail.com");
+		authorDTO.setPassword("123jak");
+		when(authorServiceInterface.login(authorDTO)).thenReturn(true, false); 
+		boolean testauthordto = authorController.login(authorDTO);
+		assertEquals(true|| false, testauthordto);
+	}
+
+}
